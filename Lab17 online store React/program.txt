@@ -1,0 +1,192 @@
+Lab Program-17
+17. Create a react application for an online store which consist of registration,
+login, product information pages and implement routing to navigate through these
+pages.
+Step 1: Set Up a React Project
+If you haven't set up a React project, create one using:
+npx create-react-app online-store
+cd online-store
+npm install react-router-dom
+npm start
+Step 2: Create the Components
+1. App.js (Main Component)
+Replace the contents of src/App.js with the following:
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './Home';
+import Register from './Register';
+import Login from './Login';
+import Products from './Products';
+import './App.css';
+function App() {
+ return (
+ <Router>
+ <div className="online-store">
+ <h2> Online Store</h2>
+ <nav>
+ <Link to="/">Home</Link>
+ <Link to="/register">Register</Link>
+ <Link to="/login">Login</Link>
+ <Link to="/products">Products</Link>
+ </nav>
+ <Routes>
+ <Route path="/" element={<Home />} />
+ <Route path="/register" element={<Register />} />
+ <Route path="/login" element={<Login />} />
+ <Route path="/products" element={<Products />} />
+ </Routes>
+ </div>
+ </Router>
+ );
+}
+export default App;
+2. Home.js (Home Page)
+Create a new file src/Home.js and add:
+import React from 'react';
+function Home() {
+ return (
+ <div>
+ <h2>Welcome to Our Online Store</h2>
+ <p>Shop the best products at the best prices!</p>
+ </div>
+ );
+}
+export default Home;
+3. Register.js (Registration Page)
+Create a new file src/Register.js and add:
+import React, { useState } from 'react';
+function Register() {
+ const [user, setUser] = useState({ name: "", email: "", password: "" });
+ const handleChange = (e) => {
+ setUser({ ...user, [e.target.name]: e.target.value });
+ };
+ const handleSubmit = (e) => {
+ e.preventDefault();
+ alert("Registration Successful!");
+ };
+ return (
+ <div>
+ <h2>Register</h2>
+ <form onSubmit={handleSubmit}>
+ <input type="text" name="name" placeholder="Name"
+onChange={handleChange} required /><br />
+ <input type="email" name="email" placeholder="Email"
+onChange={handleChange} required /><br />
+ <input type="password" name="password" placeholder="Password"
+onChange={handleChange} required /><br />
+ <button type="submit">Register</button>
+ </form>
+ </div>
+ );
+}
+export default Register;
+4. Login.js (Login Page)
+Create a new file src/Login.js and add:
+import React, { useState } from 'react';
+function Login() {
+ const [credentials, setCredentials] = useState({ email: "", password: "" });
+ const handleChange = (e) => {
+ setCredentials({ ...credentials, [e.target.name]: e.target.value });
+ };
+ const handleSubmit = (e) => {
+ e.preventDefault();
+ alert("Login Successful!");
+ };
+ return (
+ <div>
+ <h2>Login</h2>
+ <form onSubmit={handleSubmit}>
+ <input type="email" name="email" placeholder="Email"
+onChange={handleChange} required /><br />
+ <input type="password" name="password" placeholder="Password"
+onChange={handleChange} required /><br />
+ <button type="submit">Login</button>
+ </form>
+ </div>
+ );
+}
+export default Login;
+5. Products.js (Product Page)
+Create a new file src/Products.js and add:
+import React from 'react';
+const products = [
+ { id: 1, name: "Laptop", price: "₹50,000" },
+ { id: 2, name: "Smartphone", price: "₹20,000" },
+ { id: 3, name: "Headphones", price: "₹3,000" }
+];
+function Products() {
+ return (
+ <div>
+ <h2>Our Products</h2>
+ <ul>
+ {products.map((product) => (
+ <li key={product.id}>
+ <strong>{product.name}</strong> - {product.price}
+ </li>
+ ))}
+ </ul>
+ </div>
+ );
+}
+export default Products;
+Step 3: Add CSS for Styling
+Replace the contents of src/App.css with the following:
+.online-store {
+ text-align: center;
+ font-family: Arial, sans-serif;
+}
+nav {
+ margin: 20px;
+}
+nav a {
+ margin: 10px;
+ padding: 10px;
+ text-decoration: none;
+ background-color: #007bff;
+ color: white;
+ border-radius: 5px;
+}
+nav a:hover {
+ background-color: #0056b3;
+}
+input {
+ margin: 5px;
+ padding: 10px;
+ width: 200px;
+}
+button {
+ padding: 10px;
+ font-size: 16px;
+ cursor: pointer;
+ background-color: #28a745;
+ color: white;
+ border: none;
+ border-radius: 5px;
+}
+button:hover {
+ background-color: #218838;
+}
+ul {
+ list-style: none;
+ padding: 0;
+}
+li {
+ margin: 10px 0;
+ padding: 10px;
+ border: 1px solid #ddd;
+ border-radius: 5px;
+ background-color: #f9f9f9;
+}
+Explanation:
+1. React Router (react-router-dom) is used for navigation.
+2. Four pages (Home.js, Register.js, Login.js, Products.js) are created.
+3. Navigation (Link) allows switching between pages.
+4. Registration and Login Forms store user input using useState.
+5. Product Page (Products.js) dynamically renders a list of available products.
+6. Styling (App.css) improves the UI design.
+How to Run the Program
+1. Start the React App:
+npm start
+2. Open http://localhost:3000/ in your browser.
+3. Click Home, Register, Login, and Products to navigate through the application.
+4. Test the registration and login forms by filling in details and clicking submit.

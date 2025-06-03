@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jobApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Registration Form</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .form-container {
+      width: 350px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    input.ng-dirty.ng-invalid,
+    select.ng-dirty.ng-invalid {
+      border: 2px solid red;
+    }
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+    .success {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body ng-controller="JobController">
+
+  <div class="form-container">
+    <h2>Job Registration Form</h2>
+    <form name="jobForm" novalidate>
+      <!-- Name -->
+      <label>Name:</label>
+      <input type="text" name="name" ng-model="user.name" required />
+      <span class="error" ng-show="jobForm.name.$dirty && jobForm.name.$error.required">
+        Name is required
+      </span>
+      <br><br>
+
+      <!-- Email -->
+      <label>Email:</label>
+      <input type="email" name="email" ng-model="user.email" required />
+      <span class="error" ng-show="jobForm.email.$dirty && jobForm.email.$error.required">
+        Email is required
+      </span>
+      <span class="error" ng-show="jobForm.email.$dirty && jobForm.email.$error.email">
+        Invalid email format
+      </span>
+      <br><br>
+
+      <!-- Phone -->
+      <label>Phone Number:</label>
+      <input type="text" name="phone" ng-model="user.phone" ng-pattern="/^\d{10}$/" required />
+      <span class="error" ng-show="jobForm.phone.$dirty && jobForm.phone.$error.required">
+        Phone number is required
+      </span>
+      <span class="error" ng-show="jobForm.phone.$dirty && jobForm.phone.$error.pattern">
+        Enter a valid 10-digit number
+      </span>
+      <br><br>
+
+      <!-- Position -->
+      <label>Position Applied:</label>
+      <select name="position" ng-model="user.position" required>
+        <option value="">Select Position</option>
+        <option value="Developer">Developer</option>
+        <option value="Manager">Manager</option>
+        <option value="Designer">Designer</option>
+      </select>
+      <span class="error" ng-show="jobForm.position.$dirty && jobForm.position.$error.required">
+        Please select a position
+      </span>
+      <br><br>
+
+      <!-- Submit -->
+      <button type="submit" ng-click="submitForm()" ng-disabled="jobForm.$invalid">
+        Submit
+      </button>
+    </form>
+
+    <!-- Success Message -->
+    <p class="success" ng-show="submitted">Registration successful!</p>
+  </div>
+
+  <!-- AngularJS Script -->
+  <script>
+    var app = angular.module('jobApp', []);
+    app.controller('JobController', function ($scope) {
+      $scope.submitted = false;
+
+      $scope.submitForm = function () {
+        if ($scope.jobForm.$valid) {
+          $scope.submitted = true;
+        } else {
+          alert("Please correct the errors before submitting.");
+        }
+      };
+    });
+  </script>
+
+</body>
+</html>

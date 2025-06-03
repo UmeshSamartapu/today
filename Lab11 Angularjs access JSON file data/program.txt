@@ -1,0 +1,81 @@
+Lab Program-11
+11. Write an angular JS application to access JSON file data of an employee from a server
+using $http service
+Step 1: Create the JSON File
+Save this as employees.json
+[
+ { "id": 1, "name": "Alice", "position": "Developer", "salary": 50000 },
+ { "id": 2, "name": "Bob", "position": "Manager", "salary": 70000 },
+ { "id": 3, "name": "Charlie", "position": "Designer", "salary": 60000 }
+]
+Step 2: Create the AngularJS Application
+Save this as index2.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Employee Data</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+ <style>
+ body
+ {
+ font-family: Arial, sans-serif;
+ margin: 20px;
+ }
+ table
+ {
+ width: 100%;
+ border-collapse: collapse;
+ }
+ th, td
+ {
+ border: 1px solid #ddd;
+ padding: 8px;
+ text-align: left;
+ }
+ th
+ {
+ background-color: #f2f2f2;
+ }
+ </style>
+</head>
+<body ng-app="employeeApp" ng-controller="EmployeeController">
+ <h2>Employee List</h2>
+ <table>
+ <tr>
+ <th>ID</th>
+ <th>Name</th>
+ <th>Position</th>
+ <th>Salary</th>
+ </tr>
+ <tr ng-repeat="emp in employees">
+ <td>{{ emp.id }}</td>
+ <td>{{ emp.name }}</td>
+ <td>{{ emp.position }}</td>
+ <td>₹{{ emp.salary }}</td>
+ </tr>
+ </table>
+ <script>
+ var app = angular.module('employeeApp', []);
+ app.controller('EmployeeController', function($scope, $http) {
+ $http.get('employees.json')
+ .then(function(response) {
+ $scope.employees = response.data;
+ })
+ .catch(function(error) {
+ console.error("Error fetching data:", error);
+ });
+ });
+ </script>
+</body>
+</html>
+Explanation:
+1. Include AngularJS using a CDN.
+2. Define an AngularJS app (ng-app="employeeApp") and a controller (ngcontroller="EmployeeController").
+3. Use $http.get('employees.json') to fetch employee data from the JSON file.
+4. Store the data in $scope.employees.
+5. Use ng-repeat="emp in employees" to dynamically generate the table rows.
+How to Run the Program:
+1. Save employees.json and index2.html in the same directory.
+2. Go live

@@ -1,0 +1,93 @@
+Lab Program - 8
+8. Perform Count, Limit, Sort, and Skip operations on the given collections using
+MongoDB
+Step 1: Install MongoDB and Dependencies
+Make sure MongoDB is installed and running.
+Then, install the MongoDB Node.js driver using:
+npm install mongodb
+Step 2: Create the Node.js Application
+Save the following code as mongodb_operations2.js
+const { MongoClient } = require('mongodb');
+const url = 'mongodb://localhost:27017';
+const dbName = 'companyDB';
+async function runOperations()
+{
+ const client = new MongoClient(url);
+ try {
+ await client.connect();
+ console.log("Connected to MongoDB!");
+ const db = client.db(dbName);
+ const employees = db.collection('employees');
+ // **1. COUNT - Get total number of documents**
+ const totalEmployees = await employees.countDocuments();
+ console.log(`Total employees: ${totalEmployees}`);
+ // **2. LIMIT - Get only 2 documents**
+ const limitedEmployees = await employees.find().limit(2).toArray();
+ console.log("Limited Employees:", limitedEmployees);
+ // **3. SORT - Sort employees by salary in descending order**
+ const sortedEmployees = await employees.find().sort({ salary: -1 }).toArray();
+ console.log("Employees sorted by salary (High to Low):", sortedEmployees);
+ // **4. SKIP - Skip the first record and fetch the next ones**
+ const skippedEmployees = await employees.find().skip(1).toArray();
+ console.log("Employees after skipping first record:", skippedEmployees);
+ } catch (err)
+ {
+ console.error("Error:", err);
+ } finally
+ {
+ await client.close();
+ console.log("Connection closed.");
+ }
+}
+runOperations();
+Explanation:
+1. Count Documents: countDocuments() returns the total number of employees.
+2. Limit Records: find().limit(2) retrieves only 2 employees.
+3. Sort Records: find().sort({ salary: -1 }) sorts employees by salary in descending
+order.
+4. Skip Records: find().skip(1) skips the first record and fetches the rest.
+How to Run the Program:
+1. Start MongoDB (if not running already):
+mongod --dbpath /data/db
+2. Run the script:
+node mongodb_operations2.js
+output:
+Connected to MongoDB!
+Total employees: 2
+Limited Employees: [
+ {
+ _id: new ObjectId('67d5852ab186c43630fc2479'),
+ name: 'Alice',
+ position: 'Developer',
+ salary: 55000
+ },
+ {
+ _id: new ObjectId('67d5852ab186c43630fc247a'),
+ name: 'Bob',
+ position: 'Manager',
+ salary: 70000
+ }
+]
+Employees sorted by salary (High to Low): [
+ {
+ _id: new ObjectId('67d5852ab186c43630fc247a'),
+ name: 'Bob',
+ position: 'Manager',
+ salary: 70000
+ },
+ {
+ _id: new ObjectId('67d5852ab186c43630fc2479'),
+ name: 'Alice',
+ position: 'Developer',
+ salary: 55000
+ }
+]
+Employees after skipping first record: [
+ {
+ _id: new ObjectId('67d5852ab186c43630fc247a'),
+ name: 'Bob',
+ position: 'Manager',
+ salary: 70000
+ }
+]
+Connection closed.

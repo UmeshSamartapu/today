@@ -1,0 +1,15 @@
+student-management-app/
+├── server.js
+├── index.html
+└── package.json (auto-created)
+
+mkdir student-management-app
+cd student-management-app
+
+npm init -y
+npm install express cors body-parser
+
+node server.js => Server running at http://localhost:3000
+
+index.html in a live server
+

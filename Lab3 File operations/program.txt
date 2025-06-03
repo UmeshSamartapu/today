@@ -1,0 +1,70 @@
+Lab Program -3
+3. Write a Node JS program to perform read, write and other operations on a file
+Solution:
+
+file_operations.js
+const fs = require('fs');
+
+const fileName = 'example.txt';
+const fileContent = 'Hello, this is a sample file created using Node.js!';
+
+// 1. Write to a file
+fs.writeFile(fileName, fileContent, (err) => {
+  if (err) {
+    console.error('Error writing file:', err);
+    return;
+  }
+  console.log('File created and data written successfully.');
+
+  // 2. Read from the file
+  fs.readFile(fileName, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading file:', err);
+      return;
+    }
+    console.log('File content:', data);
+
+    // 3. Append data to the file
+    fs.appendFile(fileName, '\nAppended text!', (err) => {
+      if (err) {
+        console.error('Error appending file:', err);
+        return;
+      }
+      console.log('Data appended successfully.');
+
+      // 4. Rename the file
+      const newFileName = 'updated_example.txt';
+      fs.rename(fileName, newFileName, (err) => {
+        if (err) {
+          console.error('Error renaming file:', err);
+          return;
+        }
+        console.log('File renamed successfully.');
+
+        // 5. Delete the file
+        fs.unlink(newFileName, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+            return;
+          }
+          console.log('File deleted successfully.');
+        });
+      });
+    });
+  });
+});
+
+
+Explanation:
+1. Write to a file using fs.writeFile().
+2. Read from the file using fs.readFile().
+3. Append data using fs.appendFile().
+4. Rename the file using fs.rename().
+5. Delete the file using fs.unlink().
+How to Run the Program:
+1. Save the file as file_operations.js.
+2. Run the program using:
+node file_operations.js
+3. The output will display file creation, reading, appending, renaming, and deletion
+messages.
+Output:

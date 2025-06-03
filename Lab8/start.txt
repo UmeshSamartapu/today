@@ -1,0 +1,19 @@
+https://www.mongodb.com/try/download/community
+make dir "C:\data\db"
+Start MongoDB Server
+mongod --dbpath /data/db
+
+https://nodejs.org/
+node -v
+npm -v
+
+mkdir MongoLab8
+cd MongoLab8
+npm init -y
+npm install mongodb
+
+mongodb_operations2.js
+
+Run the Node.js Script
+node mongodb_operations2.js
+

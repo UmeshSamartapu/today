@@ -1,0 +1,8 @@
+npx create-react-app voting-app
+cd voting-app
+
+Replace App.js with Voting Code
+Add Styling in App.css
+
+npm start
+OPEN: http://localhost:3000/

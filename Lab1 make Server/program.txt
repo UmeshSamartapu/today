@@ -1,0 +1,29 @@
+Lab Program 1:
+1. Create an application to setup node JS environment and display “Hello
+World”
+Solution:
+server.js
+const http = require('http');
+const server = http.createServer((req, res) => {
+ res.writeHead(200, { 'Content-Type': 'text/plain' });
+ res.end('Hello World');
+});
+const PORT = 3000;
+server.listen(PORT, () => {
+ console.log(`Server is running on http://localhost:${PORT}`);
+});
+Explanation:
+1. Importing the HTTP module: Node.js provides a built-in module called http to
+create web servers.
+2. Creating a server: http.createServer() is used to create a basic server.
+3. Handling requests and responses:
+o res.writeHead(200, { 'Content-Type': 'text/plain' }); sets the response
+header.
+o res.end('Hello World'); sends the response to the client.
+4. Listening on a port: server.listen(3000, ...) starts the server on port 3000.
+How to Run the Program:
+1. Install Node.js if not already installed.
+2. Save the file as server.js.
+3. Open a terminal, navigate to the file location, and run:
+node server.js
+4. Open a browser and go to http://localhost:3000 to see "Hello World".

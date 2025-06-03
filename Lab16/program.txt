@@ -1,0 +1,128 @@
+Lab Program-16
+16. Build a music store application using react components and provide routing
+among the web pages.
+Step 1: Set Up a React Project
+If you haven't set up a React project, create one using:
+npx create-react-app music-store
+cd music-store
+npm install react-router-dom
+npm start
+Step 2: Create the Components
+1. App.js (Main Component)
+Replace the contents of src/App.js with the following code:
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Home from './Home';
+import Store from './Store';
+import Contact from './Contact';
+import './App.css';
+function App() {
+ return (
+ <Router>
+ <div className="music-store">
+ <h2> Music Store </h2>
+ <nav>
+ <Link to="/">Home</Link>
+ <Link to="/store">Store</Link>
+ <Link to="/contact">Contact</Link>
+ </nav>
+ <Routes>
+ <Route path="/" element={<Home />} />
+ <Route path="/store" element={<Store />} />
+ <Route path="/contact" element={<Contact />} />
+ </Routes>
+ </div>
+ </Router>
+ );
+}
+export default App;
+2. Home.js (Home Page)
+Create a new file src/Home.js and add:
+import React from 'react';
+function Home() {
+ return (
+ <div>
+ <h2>Welcome to the Music Store</h2>
+ <p>Discover the best music albums and tracks available!</p>
+ </div>
+ );
+}
+export default Home;
+3. Store.js (Music Store Page)
+Create a new file src/Store.js and add:
+import React from 'react';
+const albums = [
+ { id: 1, title: "Thriller", artist: "Michael Jackson", price: "₹999" },
+ { id: 2, title: "Back in Black", artist: "AC/DC", price: "₹899" },
+ { id: 3, title: "The Dark Side of the Moon", artist: "Pink Floyd", price: "₹1099" }
+];
+function Store() {
+ return (
+ <div>
+ <h2>Music Store</h2>
+ <ul>
+ {albums.map((album) => (
+ <li key={album.id}>
+ <strong>{album.title}</strong> by {album.artist} - {album.price}
+ </li>
+ ))}
+ </ul>
+ </div>
+ );
+}
+export default Store;
+4. Contact.js (Contact Page)
+Create a new file src/Contact.js and add:
+import React from 'react';
+function Contact() {
+ return (
+ <div>
+ <h2>Contact Us</h2>
+ <p>Email: support@musicstore.com</p>
+ <p>Phone: +91 9876543210</p>
+ </div>
+ );
+}
+export default Contact;
+Step 3: Add CSS for Styling
+Replace the contents of src/App.css with the following:
+.music-store {
+ text-align: center;
+ font-family: Arial, sans-serif;
+}
+nav {
+ margin: 20px;
+}
+nav a {
+ margin: 10px;
+ padding: 10px;
+ text-decoration: none;
+ background-color: #007bff;
+ color: white;
+ border-radius: 5px;
+}
+nav a:hover {
+ background-color: #0056b3;
+}
+ul {
+ list-style: none;
+ padding: 0;
+}
+li {
+ margin: 10px 0;
+ padding: 10px;
+ border: 1px solid #ddd;
+ border-radius: 5px;
+ background-color: #f9f9f9;
+}
+Explanation:
+1. React Router (react-router-dom) is used for navigation.
+2. Three pages (Home.js, Store.js, Contact.js) are created.
+3. Navigation (Link) allows switching between pages.
+4. Albums list in Store.js dynamically renders a list of music albums.
+5. Styling (App.css) makes the UI clean and user-friendly.
+How to Run the Program
+1. Start the React App:
+npm start
+2. Open http://localhost:3000/ in your browser.
+3. Click Home, Store, and Contact to navigate.

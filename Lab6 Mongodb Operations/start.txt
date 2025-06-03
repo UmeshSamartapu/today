@@ -1,0 +1,20 @@
+https://www.mongodb.com/try/download/community
+make dir "C:\data\db"
+
+https://nodejs.org/
+node -v
+npm -v
+
+mkdir MongoLab6
+cd MongoLab6
+npm init -y
+npm install mongodb
+
+Start MongoDB Server
+mongod --dbpath C:\data\db
+Run the Node.js Script
+node mongodb_operations.js
+View Data in MongoDB Shell
+mongosh
+use foodDeliveryDB
+db.orders.find().pretty()

@@ -1,0 +1,152 @@
+Lab Program- 12
+12. Develop a web application to manage student information using Express and Angular
+JS
+Step 1: Install Dependencies
+Make sure you have Node.js installed. Then install Express and CORS:
+npm install express cors body-parser
+Step 2: Create the Backend with Express (server.js)
+Save this as server.js
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+app.use(cors()); // Enable CORS
+app.use(bodyParser.json()); // Parse JSON data
+// Sample student data
+let students = [
+ { id: 1, name: "Alice", course: "Computer Science" },
+ { id: 2, name: "Bob", course: "Mechanical Engineering" },
+ { id: 3, name: "Charlie", course: "Electrical Engineering" }
+];
+// API to get all students
+app.get('/students', (req, res) => {
+ res.json(students);
+});
+// API to add a new student
+app.post('/students', (req, res) => {
+ const newStudent = req.body;
+ newStudent.id = students.length + 1;
+ students.push(newStudent);
+ res.json({ message: "Student added successfully!", students });
+});
+// API to delete a student
+app.delete('/students/:id', (req, res) => {
+ const studentId = parseInt(req.params.id);
+ students = students.filter(student => student.id !== studentId);
+ res.json({ message: "Student deleted successfully!", students });
+});
+// Start the server
+app.listen(PORT, () => {
+ console.log(`Server running at http://localhost:${PORT}`);
+});
+Step 3: Create the Frontend with AngularJS (index.html)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Student Management</title>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+ <style>
+ body
+ {
+ font-family: Arial, sans-serif;
+ margin: 20px;
+ }
+ table
+ {
+ width: 100%;
+ border-collapse: collapse;
+ }
+ th, td
+ {
+ border: 1px solid #ddd;
+ padding: 8px;
+ text-align: left;
+ }
+ th
+ {
+ background-color: #f2f2f2;
+ }
+ </style>
+</head>
+<body ng-app="studentApp" ng-controller="StudentController">
+ <h2>Student Management System</h2>
+ <h3>Add Student</h3>
+ <form ng-submit="addStudent()">
+ <label>Name:</label>
+ <input type="text" ng-model="newStudent.name" required />
+ <label>Course:</label>
+ <input type="text" ng-model="newStudent.course" required />
+ <button type="submit">Add</button>
+ </form>
+ <h3>Student List</h3>
+ <table>
+ <tr>
+ <th>ID</th>
+ <th>Name</th>
+ <th>Course</th>
+ <th>Actions</th>
+ </tr>
+ <tr ng-repeat="student in students">
+ <td>{{ student.id }}</td>
+ <td>{{ student.name }}</td>
+ <td>{{ student.course }}</td>
+ <td><button ng-click="deleteStudent(student.id)">Delete</button></td>
+ </tr>
+ </table>
+ <script>
+ var app = angular.module('studentApp', []);
+ app.controller('StudentController', function($scope, $http) {
+ const apiUrl = 'http://localhost:3000/students';
+ // Load students from server
+ function loadStudents() {
+ $http.get(apiUrl).then(response => {
+ $scope.students = response.data;
+ }).catch(error => {
+ console.error("Error fetching students:", error);
+ });
+ }
+ loadStudents(); // Load students initially
+ // Add new student
+ $scope.addStudent = function() {
+ $http.post(apiUrl, $scope.newStudent).then(response => {
+ alert(response.data.message);
+ loadStudents(); // Refresh the list
+ $scope.newStudent = {}; // Clear form
+ });
+ };
+ // Delete student
+ $scope.deleteStudent = function(id) {
+ $http.delete(apiUrl + '/' + id).then(response => {
+ alert(response.data.message);
+ loadStudents(); // Refresh the list
+ });
+ };
+ });
+ </script>
+</body>
+</html>
+Explanation:
+Backend (server.js - Node.js & Express)
+1. Handles student data storage in-memory (does not use a database).
+2. Provides API endpoints:
+o GET /students → Fetch all students.
+o POST /students → Add a new student.
+o DELETE /students/:id → Remove a student.
+3. Runs on http://localhost:3000.
+Frontend (index.html - AngularJS)
+1. Loads students from the backend using $http.get().
+2. Adds a new student using $http.post().
+3. Deletes a student using $http.delete().
+4. Displays the student list dynamically with ng-repeat.
+How to Run the Application
+1. Start the backend server:
+node server.js
+2. Open index.html in a browser go Live
+3. Test the features:
+o Add new students.
+o Delete existing students.
+o The student list updates dynamically.
+o

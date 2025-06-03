@@ -1,0 +1,79 @@
+Lab Program - 6
+6. Implement a program with basic commands on databases and collections using MongoDB
+Solution:
+Step 1: Install MongoDB and Dependencies
+Make sure you have MongoDB installed and running.
+Then, install the necessary Node.js module:
+npm install mongodb
+Step 2: Create the Node.js Application
+Save the following code as mongodb_operations.js.
+const { MongoClient } = require('mongodb');
+const url = 'mongodb://localhost:27017';
+const dbName = 'foodDeliveryDB';
+async function run()
+{
+ const client = new MongoClient(url);
+ try {
+ await client.connect();
+ console.log("Connected to MongoDB!");
+ const db = client.db(dbName);
+ const collection = db.collection('orders');
+ // **1. Insert a document**
+ const newOrder = { customer: "S.RAJENDER", food: "Pizza", price: 200 };
+ await collection.insertOne(newOrder);
+ console.log("Order inserted successfully!");
+ // **2. Read documents**
+ const orders = await collection.find().toArray();
+ console.log("All Orders:", orders);
+ // **3. Update a document**
+ await collection.updateOne({ customer: "S.RAJENDER" }, { $set: { food: "Burger", price: 150 } });
+ console.log("Order updated successfully!");
+ // **4. Delete a document**
+ // await collection.deleteOne({ customer: "S.RAJENDER" });
+ // console.log("Order deleted successfully!");
+ } catch (err) {
+ console.error("Error:", err);
+ } finally {
+ // Close the database connection
+ await client.close();
+ console.log("Connection closed.");
+ }
+}
+// Run the function
+run();
+Explanation:
+1. Connect to MongoDB using MongoClient.
+2. Insert a document into the orders collection.
+3. Read all documents using find().toArray().
+4. Update a document using updateOne().
+5. Delete a document using deleteOne().
+How to Run the Program:
+{
+https://www.mongodb.com/try/download/community
+make dir "C:\data\db"
+https://nodejs.org/
+node -v
+npm -v
+mkdir MongoLab6
+cd MongoLab6
+npm init -y
+npm install mongodb
+Start MongoDB Server
+mongod --dbpath C:\data\db
+Run the Node.js Script
+node mongodb_operations.js
+View Data in MongoDB Shell
+mongosh
+use foodDeliveryDB
+db.orders.find().pretty()
+}
+
+1. Start MongoDB (if not running already):
+mongod --dbpath /data/db
+2. Run the script:
+node mongodb_operations.js
+3. Check the inserted data in MongoDB:
+mongosh
+use foodDeliveryDB
+db.orders.find().pretty()
+OUTPUT:

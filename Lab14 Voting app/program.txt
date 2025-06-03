@@ -1,0 +1,82 @@
+Lab Program-14:
+14. Write a program to create a voting application using React JS
+Step 1: Set Up a React Project
+If you haven’t set up a React project, create one using:
+npx create-react-app voting-app
+cd voting-app
+Step 2: Create the Voting Component
+Inside the src folder, replace App.js with the following code:
+import React, { useState } from 'react';
+import './App.css';
+function App() {
+ // State to store votes for each candidate
+ const [votes, setVotes] = useState({ CandidateA: 0, CandidateB: 0, CandidateC: 0 });
+ // Function to handle voting
+ const voteCandidate = (candidate) => {
+ setVotes({ ...votes, [candidate]: votes[candidate] + 1 });
+ };
+ return (
+ <div className="voting-app">
+ <h2>Voting Application</h2>
+ <div className="candidates">
+ {Object.keys(votes).map((candidate) => (
+ <div key={candidate} className="candidate">
+ <h3>{candidate}</h3>
+ <p>Votes: {votes[candidate]}</p>
+ <button onClick={() => voteCandidate(candidate)}>Vote</button>
+ </div>
+ ))}
+ </div>
+ <h3>Leading Candidate: {Object.keys(votes).reduce((a, b) => (votes[a] > votes[b] ?
+a : b))}</h3>
+ </div>
+ );
+}
+export default App;
+Step 3: Add CSS for Styling
+Replace src/App.css with the following:
+.voting-app {
+ width: 300px;
+ margin: 50px auto;
+ text-align: center;
+ padding: 20px;
+ border: 2px solid #333;
+ border-radius: 10px;
+ background-color: #f4f4f4;
+}
+.candidates {
+ display: flex;
+ flex-direction: column;
+ gap: 15px;
+}
+.candidate {
+ padding: 10px;
+ border: 1px solid #aaa;
+ border-radius: 5px;
+ background-color: #fff;
+}
+button {
+ padding: 5px 10px;
+ font-size: 16px;
+ cursor: pointer;
+ background-color: #4CAF50;
+ color: white;
+ border: none;
+ border-radius: 5px;
+}
+button:hover {
+ background-color: #45a049;
+}
+Explanation:
+1. State Management (useState):
+o votes stores the number of votes for each candidate.
+o setVotes updates the vote count.
+2. Handling Voting (voteCandidate):
+o When a user clicks a button, the vote count increases for that candidate.
+3. Displaying the Leading Candidate:
+o The candidate with the highest votes is displayed dynamically.
+How to Run the Program
+1. Start the React App:
+npm start
+2. Open http://localhost:3000/ in your browser.
+3. Click on the "Vote" button for any candidate and watch the votes update in realtime.

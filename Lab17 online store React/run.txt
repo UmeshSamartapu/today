@@ -1,0 +1,14 @@
+npx create-react-app online-store
+cd online-store
+npm install react-router-dom
+
+Replace/Create Component Files
+src/App.js
+src/Home.js
+src/Register.js
+src/Login.js
+src/Products.js
+src/App.css
+
+npm start
+http://localhost:3000/

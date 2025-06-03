@@ -1,0 +1,12 @@
+npx create-react-app music-store
+cd music-store
+npm install react-router-dom
+npm start
+
+
+Replace/Create Component Files
+src/App.js
+src/Home.js
+src/Store.js
+src/Contact.js
+src/App.css

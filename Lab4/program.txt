@@ -1,0 +1,39 @@
+Lab program -4
+4. Write a Node JS program to read form data from query string and generate
+response using NodeJS
+
+Solution: query_string.js
+
+const http = require('http');
+const url = require('url');
+
+const server = http.createServer((req, res) => {
+  const queryObject = url.parse(req.url, true).query;
+  const name = queryObject.name || 'Guest';
+  const age = queryObject.age || 'Not provided';
+
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end(`<h2>Hello, ${name}!</h2><p>Age: ${age}</p>`);
+});
+
+const PORT = 3000;
+server.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
+
+
+Explanation:
+1. Import modules:
+o http to create the server.
+o url to parse query strings.
+2. Parse query string data using url.parse(req.url, true).query.
+3. Extract values (e.g., name and age from the URL).
+4. Generate an HTML response using res.end().
+5. Start the server on port 3000.
+How to Run the Program:
+1. Save the file as query_string.js.
+2. Run the program using:
+node query_string.js
+3. Open a browser and visit:
+http://localhost:3000/?name=John&age=25
+The output will be: 

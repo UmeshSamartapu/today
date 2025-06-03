@@ -1,0 +1,8 @@
+npx create-react-app leave-management
+cd leave-management
+
+Replace src/App.js with Leave Management Code
+Add Styling in App.css
+
+npm start
+OPEN: http://localhost:3000

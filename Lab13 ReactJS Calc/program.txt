@@ -1,0 +1,104 @@
+Lab Program-13
+13. Write a program to create a simple calculator Application using React JS.
+Step 1: Set Up a React Project
+If you don’t have a React environment set up, create one using:
+npx create-react-app calculator-app
+cd calculator-app
+Step 2: Create the Calculator Component
+Inside the src folder, replace App.js with the following code:
+import React, { useState } from 'react';
+import './App.css';
+function App() {
+ const [input, setInput] = useState('');
+ // Function to handle button clicks
+ const handleClick = (value) => {
+ setInput(input + value);
+ };
+ // Function to calculate the result
+ const calculateResult = () => {
+ try {
+ setInput(eval(input)); // Evaluates the mathematical expression
+ } catch {
+ setInput('Error');
+ }
+ };
+ // Function to clear input
+ const clearInput = () => {
+ setInput('');
+ };
+ return (
+ <div className="calculator">
+ <h2>React Calculator</h2>
+ <input type="text" value={input} readOnly />
+ <div className="buttons">
+ {['7', '8', '9', '/', '4', '5', '6', '*', '1', '2', '3', '-', '0', '.', '=', '+'].map((item) => (
+ <button key={item} onClick={() => item === '=' ? calculateResult() :
+handleClick(item)}>
+ {item}
+ </button>
+ ))}
+ <button className="clear" onClick={clearInput}>C</button>
+ </div>
+ </div>
+ );
+}
+export default App;
+Step 3: Add CSS for Styling
+Replace src/App.css with the following:
+.calculator {
+ width: 250px;
+ margin: 50px auto;
+ text-align: center;
+ padding: 20px;
+ border: 2px solid #333;
+ border-radius: 10px;
+ background-color: #f4f4f4;
+}
+input {
+ width: 100%;
+ height: 40px;
+ font-size: 20px;
+ text-align: right;
+ margin-bottom: 10px;
+ border: none;
+ padding: 5px;
+}
+.buttons {
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+ gap: 5px;
+}
+button {
+ width: 50px;
+ height: 50px;
+ font-size: 18px;
+ border: none;
+ background-color: #ddd;
+ cursor: pointer;
+ border-radius: 5px;
+}
+button:hover {
+ background-color: #bbb;
+}
+.clear {
+ grid-column: span 4;
+ background-color: red;
+ color: white;
+}
+Explanation:
+1. State Management (useState):
+o input stores the current input/output.
+o setInput updates the input field.
+2. Functions to Handle Operations:
+o handleClick(value): Appends numbers/operators to the input.
+o calculateResult(): Evaluates the input using eval().
+o clearInput(): Clears the input field.
+3. UI Layout:
+o A text input for displaying numbers.
+o A button grid for numbers and operators.
+o A clear button (C) to reset the calculator.
+How to Run the Program
+1. Start the React App:
+npm start
+2. Open http://localhost:3000/ in your browser.
+3. Use the calculator to perform basic arithmetic operations.

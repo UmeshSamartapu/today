@@ -1,0 +1,8 @@
+/your-folder/
+├── index2.html
+└── employees.json
+
+index2.html → click "Open with Live Server".
+
+RUN: python -m http.server 8000
+OPEN: http://localhost:8000/index2.html

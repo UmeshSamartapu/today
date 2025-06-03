@@ -1,0 +1,8 @@
+npx create-react-app calculator-app
+cd calculator-app
+
+Replace src/App.js with Calculator Code 
+Replace App.css for Styling
+
+npm start
+open : http://localhost:3000/

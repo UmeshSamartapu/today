@@ -1,0 +1,60 @@
+Lab Program2
+2. Create a Node JS application for user login system.
+Solution:
+login.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+app.use(bodyParser.urlencoded({ extended: true }));
+const users = {
+ admin: 'password123',
+ user1: 'mypassword'
+};
+app.get('/', (req, res) => {
+ res.send(`
+ <h2>Login Form</h2>
+ <form method="POST" action="/login">
+ <label>Username:</label>
+ <input type="text" name="username" required/><br/><br/>
+ <label>Password:</label>
+ <input type="password" name="password" required/><br/><br/>
+ <button type="submit">Login</button>
+ </form>
+ `);
+});
+app.post('/login', (req, res) => {
+ const { username, password } = req.body;
+
+ if (users[username] && users[username] === password) {
+ res.send(`<h2>Welcome, ${username}!</h2>`);
+ } else {
+ res.send('<h2>Invalid username or password. Try again!</h2>');
+ }
+});
+app.listen(PORT, () => {
+ console.log(`Server running at http://localhost:${PORT}`);
+});
+Explanation:
+1. Import required modules:
+o express for handling HTTP requests.
+o body-parser to process form data.
+2. Create an Express app:
+o app.use(bodyParser.urlencoded({ extended: true })) enables form data
+parsing.
+3. Store user credentials (for simplicity, using an object instead of a database).
+4. Serve the login form using app.get('/').
+5. Handle login submission:
+o Check if the username and password exist in the stored users.
+o If valid, display a welcome message.
+o If invalid, show an error message.
+6. Start the server and listen on http://localhost:3000.
+
+How to Run the Program:
+1. Install Node.js and Express (npm install express body-parser).
+2. Save the file as login.js.
+3. Run it using:
+npm init -y
+npm install express body-parser
+node login.js
+4. Open http://localhost:3000 in your browser and test the login form.

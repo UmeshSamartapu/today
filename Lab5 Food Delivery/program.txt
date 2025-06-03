@@ -1,0 +1,98 @@
+Lab Program -5
+5. Create a food delivery website where users can order food from a particular
+restaurant listed in the website for handling http requests and responses using
+NodeJS
+Solution:
+Step 1: Install Dependencies
+Before running the program, install Express using:
+npm install express body-parser
+Step 2: Create the Node.js Application
+Save the following code as 
+food_delivery.js
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+
+// Middleware to parse JSON and form data
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// Sample restaurant menu
+const menu = {
+  "Pizza": 200,
+  "Burger": 150,
+  "Pasta": 180,
+  "Sandwich": 100
+};
+
+// Serve the order form
+app.get('/', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Order Form</title>
+    </head>
+    <body>
+      <h2>Food Delivery Order Form</h2>
+      <form action="/order" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label for="food">Choose Food:</label>
+        <select name="food" required>
+          <option value="Pizza">Pizza - ₹200</option>
+          <option value="Burger">Burger - ₹150</option>
+          <option value="Pasta">Pasta - ₹180</option>
+          <option value="Sandwich">Sandwich - ₹100</option>
+        </select><br><br>
+
+        <button type="submit">Place Order</button>
+      </form>
+    </body>
+    </html>
+  `);
+});
+
+// Handle food order
+app.post('/order', (req, res) => {
+  const { name, food } = req.body;
+  const price = menu[food];
+
+  if (price) {
+    res.send(`
+      <h2>Thank you, ${name}!</h2>
+      <p>Your order for ${food} has been placed successfully.</p>
+      <p>Total Cost: ₹${price}</p>
+    `);
+  } else {
+    res.send('<h2>Invalid food selection. Please try again.</h2>');
+  }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
+
+
+Explanation:
+1. Import required modules:
+o express for handling HTTP requests.
+o body-parser to parse form data.
+2. Define a menu object with food items and prices.
+3. Create an order form using a GET request (app.get('/')).
+4. Handle form submission using POST (app.post('/order')).
+5. Send a confirmation message with the selected food item and price.
+6. Start the server on port 3000.
+How to Run the Program:
+1. Install dependencies (npm install express body-parser).
+2. Save the file as food_delivery.js.
+3. Run the program:
+npm init -y
+npm install express body-parser
+node food_delivery.js
+4. Open a browser and visit: http://localhost:3000
+5. Fill the form and place an order.
